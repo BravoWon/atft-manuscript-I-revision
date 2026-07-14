@@ -16,7 +16,7 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-JTOPO = Path("C:/Users/JT-DEV1/Desktop/development/JTopo")
+JTOPO = Path(os.environ.get("JTOPO_PATH", "C:/Users/JT-DEV1/Desktop/development/JTopo"))
 OUT = HERE / "output" / "powered_null"
 OUT.mkdir(parents=True, exist_ok=True)
 
@@ -102,7 +102,7 @@ def solve_one(task):
                 lo = mid
             else:
                 hi = mid
-        eps = 0.5 * (lo + hi)
+        eps = hi
     edges = n_edges(pts, eps)
 
     builder = TransportMapBuilder(K=K, sigma=SIGMA)

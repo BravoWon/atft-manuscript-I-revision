@@ -1,3 +1,6 @@
+# NOTE (Copilot review): full reorth retains the Lanczos basis, O(m*n*probes) GPU
+# memory; kept ON because near-kernel accuracy requires it (see RUNG2_GATE_RESULT.md).
+# reorth memory note
 #!/usr/bin/env python
 """Rung 2 density discriminator — GUE ensemble band vs zeta.
 
@@ -11,7 +14,7 @@ import numpy as np, scipy.sparse as sp
 from scipy.linalg import eigvalsh_tridiagonal, eigh_tridiagonal
 from scipy.spatial.distance import pdist
 
-JTOPO="C:/Users/JT-DEV1/Desktop/development/JTopo"; sys.path.insert(0, JTOPO)
+JTOPO = os.environ.get("JTOPO_PATH", "C:/Users/JT-DEV1/Desktop/development/JTopo"); sys.path.insert(0, JTOPO)
 OUT="output/rung2_ensemble"; os.makedirs(OUT, exist_ok=True)
 BETAS=[0.5,1,2,3,5]; N,K=1000,100; TARGET=2492
 
@@ -37,7 +40,7 @@ def build_L(pts):
         m=0.5*(lo+hi)
         if ne(m)<TARGET: lo=m
         else: hi=m
-    eps=0.5*(lo+hi)
+    eps = hi
     b=TransportMapBuilder(K=K,sigma=0.5); lap=SparseSheafLaplacian(b,pts,transport_mode="superposition")
     L=lap.build_matrix(eps); return ((L+L.getH())*0.5).tocsr(), eps, ne(eps)
 

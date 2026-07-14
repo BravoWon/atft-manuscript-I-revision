@@ -1,3 +1,6 @@
+# NOTE (Copilot review): full reorth retains the Lanczos basis, O(m*n*probes) GPU
+# memory; kept ON because near-kernel accuracy requires it (see RUNG2_GATE_RESULT.md).
+# reorth memory note
 #!/usr/bin/env python
 """GPU stochastic-trace eigencounter, SLQ variant (Stochastic Lanczos Quadrature).
 

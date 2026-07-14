@@ -17,7 +17,7 @@ Decision:
 import json, os, sys, time, warnings; warnings.filterwarnings("ignore")
 import numpy as np
 from scipy.spatial.distance import pdist
-JTOPO="C:/Users/JT-DEV1/Desktop/development/JTopo"; sys.path.insert(0, JTOPO)
+JTOPO = os.environ.get("JTOPO_PATH", "C:/Users/JT-DEV1/Desktop/development/JTopo"); sys.path.insert(0, JTOPO)
 from atft.feature_maps.spectral_unfolding import SpectralUnfolding
 from atft.sources.zeta_zeros import ZetaZerosSource
 from atft.topology.sparse_sheaf_laplacian import SparseSheafLaplacian

@@ -12,7 +12,7 @@ import json, os, sys, time, warnings; warnings.filterwarnings("ignore")
 import numpy as np
 from scipy.spatial.distance import pdist
 from scipy.linalg import eigvalsh_tridiagonal
-JTOPO="C:/Users/JT-DEV1/Desktop/development/JTopo"; sys.path.insert(0, JTOPO)
+JTOPO = os.environ.get("JTOPO_PATH", "C:/Users/JT-DEV1/Desktop/development/JTopo"); sys.path.insert(0, JTOPO)
 from atft.feature_maps.spectral_unfolding import SpectralUnfolding
 from atft.sources.zeta_zeros import ZetaZerosSource
 from atft.topology.sparse_sheaf_laplacian import SparseSheafLaplacian
@@ -27,7 +27,7 @@ def eps_for(pts):
         m=0.5*(lo+hi)
         if int(np.sum(pdist(pts.reshape(-1,1))<=m))<TARGET: lo=m
         else: hi=m
-    return 0.5*(lo+hi)
+    return hi
 
 def numvar(eigs):
     p=np.polyfit(eigs, np.arange(len(eigs),dtype=float), 15); u=np.polyval(p,eigs); u=u-u[0]
