@@ -167,11 +167,13 @@ Insert after current §8; renumber Discussion → §10, Conclusion → §11.
 > the tolerance mismatch alone moved zeta's count between 24 and 30. The
 > matched-tolerance v0.1 configuration gave 24 — but that number was itself
 > solver-limited: at tol = 10⁻⁴ the eigenpair residuals (~10⁻³) sit at the
-> counting threshold. At certified tolerance (shift-invert, residuals
-> ~10⁻¹³, k = 80 uncensored) zeta's near-kernel (<10⁻³) is **62**. The
-> three numbers are one story — the count is a function of solver rigor
-> until residuals are driven far below the threshold — and Table 2 (§5.3)
-> quotes only the certified values.
+> counting threshold. At certified tolerance the value is **58** (spectral-flip
+> — the validated primary solver, residual 2·10⁻⁶); the shift-invert cross-check
+> reads 62, but that family was disqualified after it collapsed on the GUE
+> matrices (EDIT 11 solver note), so 58 is the quotable certified count. The
+> numbers are one story — the count is a function of solver rigor until
+> residuals are driven far below the threshold — and Table 2 (§5.3) quotes only
+> certified spectral-flip values.
 
 ## EDIT 8 — §3 positioning + Theorem 3.5 qualifier (RT-3, RT-4)
 
@@ -247,7 +249,7 @@ withheld until both solver families agree per source.
 >
 > | source | n | edges | near-kernel (<10⁻³) | zeta quantile |
 > |---|---|---|---|---|
-> | zeta | 1 | 2492 | 62 (certified, residual 1.0·10⁻¹³, k = 80 shift-invert; spectral-flip cross-check pending) | [PENDING] of GUE ensemble |
+> | zeta | 1 | 2492 | **58** (certified spectral-flip, residual 2·10⁻⁶; shift-invert cross-check 62, that family disqualified on GUE collapse) | [PENDING] of GUE ensemble |
 > | GUE ensemble | 100 | 2492 | [PENDING — solver resolution] | — |
 > | Poisson ensemble | 20 | 2492 | [PENDING — solver resolution] | — |
 > | even | 1 | 2492 | [PENDING] | — |
@@ -439,12 +441,16 @@ new theorems:
 **All 32 findings now have a drafted edit.** (Prior status table over-claimed:
 MATH-4 had no edit and RT-7's fix was cosmetic; both corrected above.)
 
-**EDIT 11 solver note (supersedes "PENDING COMPUTE"):** the powered-null fleet
-surfaced a solver artifact — shift-invert (σ = −10⁻⁶) returned an all-zero
-80-mode spectrum on the first GUE matrix (`gue_2000`), disagreeing with the
-original spectral-flip audit (24 near / 2 exact). The §5.3 solver and the
-certified zeta count (62 at k=80, shift-invert) are therefore **held pending a
-cross-solver diagnostic**; the table's solver header must name the family that
-survives that diagnostic. Until then no §5.3 number except the zeta cross-check
-is quotable. This is the manuscript's own §8 second-solver criterion doing its
-job before publication.
+**EDIT 11 solver note (cross-solver diagnostic RESOLVED):** the powered-null
+fleet surfaced a solver artifact — shift-invert (σ = −10⁻⁶) returned an
+all-zero 80-mode spectrum on the GUE matrices (`gue_2000`), disagreeing with
+the spectral-flip audit. A three-way diagnostic disqualified shift-invert
+(silent degeneracy) and **certified spectral-flip as the §5.3 solver**;
+zeta's certified near-kernel is **58** (spectral-flip, residual 2·10⁻⁶), with
+the shift-invert cross-check (62) retained only as the collapse diagnostic.
+**Remaining pending item:** the GUE *band* — the k=100 window **censors most
+GUE draws** (their near-kernel exceeds 100), so the band's values are
+floor-estimates. The direction is certified and strong (zeta 58 ≪ GUE, below
+all draws); a clean quantitative band needs a **k ≥ 150 rerun**. Table 2's GUE
+cells stay `[PENDING]` until then. This is the manuscript's own §8
+second-solver + tolerance-sweep criteria doing their job before publication.
